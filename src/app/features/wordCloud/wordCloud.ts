@@ -1,17 +1,17 @@
 import * as d3 from "d3";
 import cloud from "d3-cloud";
 import { Words } from "./words.type";
+import { getColors } from "./utils/color.helper";
 
 // todo loading indicator
 // todo calc weights for words
 // todo ensure all words are rendered
-// todo ensure contrast of colors
 // todo ensure size diff to next element is always smaller than 25%?
 // todo dynamic size input and map to svg
 // todo investigate why d3-cloud@1.2.5 works but d3-cloud@1.2.7 has a lot of overlaps
 export class WordCloud {
   private readonly font = "Impact";
-  private readonly colors = d3.schemeSpectral.flatMap(colors => colors);
+  private readonly colors = getColors([255, 255, 255]);
   private wordCloudTarget: d3.Selection<any, any, any, any>;
   private size = {
     width: 500,
@@ -21,7 +21,7 @@ export class WordCloud {
   constructor(svg: SVGElement) {
     this.wordCloudTarget = d3.select(svg)
       .append("g")
-      .attr("transform", "translate(" + this.size.width / 2 + "," + this.size.height / 2 + ")")
+      .attr("transform", "translate(" + this.size.width / 2 + "," + this.size.height / 2 + ")");
   }
 
   render = async (words: Words) => {
@@ -47,7 +47,7 @@ export class WordCloud {
           resolve();
         });
 
-        renderProcess.start()
+        renderProcess.start();
     });
   }
 
@@ -58,7 +58,6 @@ export class WordCloud {
       .text(d => d.text!)
       .style("font-size", d => d.size + "px")
       .style("font-family", this.font)
-      // @ts-ignore
       .style("fill", (d, i) => this.colors[i % this.colors.length])
       .attr("text-anchor", "middle")
       .attr("transform", d => `translate(${d.x},${d.y})rotate(${d.rotate})`)
