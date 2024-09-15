@@ -2,11 +2,10 @@ import * as d3 from "d3";
 import cloud from "d3-cloud";
 import { Words } from "./words.type";
 import { getColors } from "./utils/color.helper";
+import { CalculateWordPositions, calculateWordPositionsWithRetry } from "./utils/wordCloud.retrier";
 
 // todo loading indicator
-// todo calc weights for words
-// todo ensure all words are rendered
-// todo ensure size diff to next element is always smaller than 25%?
+// todo better UX when not all words could be placed
 // todo dynamic size input and map to svg
 // todo investigate why d3-cloud@1.2.5 works but d3-cloud@1.2.7 has a lot of overlaps
 export class WordCloud {
@@ -17,6 +16,7 @@ export class WordCloud {
     width: 500,
     height: 500,
   }
+  private baseFontSize = 24;
 
   constructor(svg: SVGElement) {
     this.wordCloudTarget = d3.select(svg)
@@ -25,31 +25,36 @@ export class WordCloud {
   }
 
   render = async (words: Words) => {
-    return new Promise<void>(resolve => {
-      console.log(this.size.width, this.size.height)
-      // @ts-ignore
-      const renderProcess = cloud()
+    const positionedWords = await calculateWordPositionsWithRetry(
+      this.calculateWordPositions,
+      words,
+      this.baseFontSize
+    );
+    this.baseFontSize = positionedWords.baseFontSize;
+    this.draw(positionedWords.placedWords);
+    if (!positionedWords.couldPlaceAllWords)
+      alert("Attention, not all words could be placed - sorry, that this product is still in beta");
+  }
+
+  private calculateWordPositions: CalculateWordPositions = (words, baseFontSize) => {
+    return new Promise(resolve => {
+      const calculation = cloud()
         .size([this.size.width, this.size.height])
-        .words([...words.entries()].map(([word, frequency]) => ({
-          text: word,
-          size: 10 + Math.round(Math.random() * 80),
-        })))
+        .words(words)
         .padding(5)
         .rotate(() => ~~(Math.random() * 2) * 90)
         .font(this.font) 
         .fontSize(d => d.size!)
         .timeInterval(100)
-        .on("end", d => {
-          if (words.size > d.length)
-            console.warn(`Could not place all words: Given ${words.size} but placed ${d.length}`);
+        .on("end", d => resolve({
+          couldPlaceAllWords: words.length === d.length,
+          placedWords: d,
+          baseFontSize
+        }));
 
-          this.draw(d);
-          resolve();
-        });
-
-        renderProcess.start();
+      calculation.start();
     });
-  }
+  } 
 
   private draw(words: cloud.Word[]) {
     this.wordCloudTarget.selectAll("text").remove();
