@@ -1,5 +1,5 @@
 /** Key is word and value is frequency of occurrence of word */
-export type Words = Map<string, number>;
+export type Words = Map<string, number>
 
 /**
  * Should be sorted decreasing in size and ensured,
@@ -11,3 +11,8 @@ export type WordCloudWords = Array<{
   /** used as fontSize */
   size: number;
 }>
+
+export type Size = {
+  width: number;
+  height: number;
+}

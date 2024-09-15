@@ -1,13 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, signal, ViewChild, ViewEncapsulation } from "@angular/core";
 import { WordCloud } from "./wordCloud";
-
-
-const wc1 = new Map([
-  ["Hello", 1],
-  ["World", 2],
-  ["everything", 1],
-  ["awesome", 1],
-]);
+import { Size } from "./wordCloud.type";
+import { IsLoadingDirective } from "../../supporting/directives/isLoading/isLoading/isLoading.directive";
 
 const wc2 = new Map([
   ["Hello", 1],
@@ -24,16 +18,42 @@ const wc2 = new Map([
 @Component({
   selector: "app-word-cloud",
   templateUrl: "wordCloud.component.html",
+  styleUrl: "wordCloud.component.css",
   encapsulation: ViewEncapsulation.None,
   standalone: true,
+  imports: [
+    IsLoadingDirective,
+  ]
 })
-export class WordCloudComponent implements OnInit {
+export class WordCloudComponent implements OnInit, OnDestroy {
   @ViewChild("wordCloudSvg", { static: true }) private wordCloudSvgRef!: ElementRef<SVGElement>;
 
-  private wordCloud!: WordCloud;
+  protected isLoading = signal(false);
+
+  private wordCloud: WordCloud | null = null;
+  private sizeObserver!: ResizeObserver;
 
   ngOnInit(): void {
-    this.wordCloud = new WordCloud(this.wordCloudSvgRef.nativeElement);
-    this.wordCloud.render(wc2);
+    this.sizeObserver = new ResizeObserver(entries => {
+      this.isLoading.set(true);
+
+      const size: Size = {
+        width: entries[0].contentRect.width,
+        height: entries[0].contentRect.height,
+      }
+      if (this.wordCloud === null) {
+        this.wordCloud = new WordCloud(size, this.wordCloudSvgRef.nativeElement);
+        this.wordCloud.render(wc2)
+          .then(() => this.isLoading.set(false));
+      } else {
+        this.wordCloud.resize(size, wc2)
+          .then(() => this.isLoading.set(false));
+      }
+    });
+    this.sizeObserver.observe(this.wordCloudSvgRef.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.sizeObserver.disconnect();
   }
 }

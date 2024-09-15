@@ -1,4 +1,4 @@
-import { WordCloudWords, Words } from "../words.type";
+import { WordCloudWords, Words } from "../wordCloud.type";
 import cloud from "d3-cloud";
 
 export type PositionedWords = {

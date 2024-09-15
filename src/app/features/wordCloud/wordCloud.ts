@@ -1,27 +1,23 @@
 import * as d3 from "d3";
 import cloud from "d3-cloud";
-import { Words } from "./words.type";
+import { Size, Words } from "./wordCloud.type";
 import { getColors } from "./utils/color.helper";
 import { CalculateWordPositions, calculateWordPositionsWithRetry } from "./utils/wordCloud.retrier";
 
-// todo loading indicator
 // todo better UX when not all words could be placed
-// todo dynamic size input and map to svg
 // todo investigate why d3-cloud@1.2.5 works but d3-cloud@1.2.7 has a lot of overlaps
 export class WordCloud {
   private readonly font = "Impact";
   private readonly colors = getColors([255, 255, 255]);
+  private readonly startBaseFontSize = 24;
+  private baseFontSize = this.startBaseFontSize;
   private wordCloudTarget: d3.Selection<any, any, any, any>;
-  private size = {
-    width: 500,
-    height: 500,
-  }
-  private baseFontSize = 24;
+  private ongoingCalculation: ReturnType<typeof cloud> | null = null;
 
-  constructor(svg: SVGElement) {
+  constructor(private size: Size, svg: SVGElement) {
     this.wordCloudTarget = d3.select(svg)
       .append("g")
-      .attr("transform", "translate(" + this.size.width / 2 + "," + this.size.height / 2 + ")");
+      .attr("transform", `translate(${this.size.width/2},${this.size.height/2})`);
   }
 
   render = async (words: Words) => {
@@ -30,15 +26,31 @@ export class WordCloud {
       words,
       this.baseFontSize
     );
+
     this.baseFontSize = positionedWords.baseFontSize;
     this.draw(positionedWords.placedWords);
     if (!positionedWords.couldPlaceAllWords)
-      alert("Attention, not all words could be placed - sorry, that this product is still in beta");
+      alert("Attention, not all words could be placed - sorry, this product is still in beta");
+  }
+
+  async resize(size: Size, words: Words) {
+    this.size = size;
+    this.baseFontSize = this.startBaseFontSize;
+    this.wordCloudTarget
+      .attr("transform", `translate(${this.size.width/2},${this.size.height/2})`);
+
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    return this.render(words);
   }
 
   private calculateWordPositions: CalculateWordPositions = (words, baseFontSize) => {
     return new Promise(resolve => {
-      const calculation = cloud()
+      if (this.ongoingCalculation) {
+        this.ongoingCalculation.stop();
+        this.ongoingCalculation = null;
+      }
+
+      this.ongoingCalculation = cloud()
         .size([this.size.width, this.size.height])
         .words(words)
         .padding(5)
@@ -46,13 +58,18 @@ export class WordCloud {
         .font(this.font) 
         .fontSize(d => d.size!)
         .timeInterval(100)
-        .on("end", d => resolve({
-          couldPlaceAllWords: words.length === d.length,
-          placedWords: d,
-          baseFontSize
-        }));
+        .on("end", d => {
+          // todo this may still get called, although stopped was called - prevent drawing in that case!
+          console.log("ended with", d.length)
+          this.ongoingCalculation = null;
+          resolve({
+            couldPlaceAllWords: words.length === d.length,
+            placedWords: d,
+            baseFontSize
+          })
+        });
 
-      calculation.start();
+      this.ongoingCalculation.start();
     });
   } 
 

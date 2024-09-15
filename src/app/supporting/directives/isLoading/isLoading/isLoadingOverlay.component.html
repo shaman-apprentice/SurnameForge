@@ -1,0 +1,6 @@
+<!-- Workaround as p-blockUI doesn't unblock on isLoading=false. Is this a PrimeNG problem, or an Angular zoneless problem? -->
+@if (isLoading) {
+  <p-blockUI [target]="target" [blocked]="isLoading">
+    <p-progressSpinner aria-label="loading" class="marginAuto"></p-progressSpinner>
+  </p-blockUI>
+}

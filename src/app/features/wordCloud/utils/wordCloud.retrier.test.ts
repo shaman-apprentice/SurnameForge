@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { Words } from "../words.type";
+import { Words } from "../wordCloud.type";
 import { _parseWords, calculateWordPositionsWithRetry, CalculateWordPositions } from "./wordCloud.retrier";
 
 describe("wordCloud.retrier", () => {
