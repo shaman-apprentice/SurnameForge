@@ -60,7 +60,6 @@ export class WordCloud {
         .timeInterval(100)
         .on("end", d => {
           // todo this may still get called, although stopped was called - prevent drawing in that case!
-          console.log("ended with", d.length)
           this.ongoingCalculation = null;
           resolve({
             couldPlaceAllWords: words.length === d.length,

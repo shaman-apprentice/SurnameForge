@@ -31,7 +31,7 @@ export class WordCloudComponent implements OnInit, OnDestroy {
   protected isLoading = signal(false);
 
   private wordCloud: WordCloud | null = null;
-  private sizeObserver!: ResizeObserver;
+  private sizeObserver?: ResizeObserver;
 
   ngOnInit(): void {
     this.sizeObserver = new ResizeObserver(entries => {
@@ -54,6 +54,6 @@ export class WordCloudComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sizeObserver.disconnect();
+    this.sizeObserver?.disconnect();
   }
 }
