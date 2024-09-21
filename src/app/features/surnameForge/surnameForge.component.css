@@ -1,0 +1,32 @@
+.surname-forge-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+app-surname-form {
+  height: 80vh;
+}
+
+.surname-form-divider {
+  background-color: var(--p-surface-200);
+  width: 100%;
+  height: 2px;
+}
+
+@media (min-width: 768px) {
+  .surname-forge-container {
+    flex-direction: row;
+  }
+
+  app-surname-form {
+    height: 100%;
+    flex-grow: 1;
+  }
+
+  .surname-form-divider {
+    width: 2px;
+    height: 100%;
+  }
+}

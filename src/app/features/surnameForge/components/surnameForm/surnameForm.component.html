@@ -1,0 +1,8 @@
+<div class="h-100 d-flex flex-column gap-3" [isLoading]="isLoading">
+  <h1 class="text-center">{{ surname() }}</h1>
+  <app-word-cloud class="flex-grow-1" [words]="words()"></app-word-cloud>
+  <div class="d-flex gap-3">
+    <input class="flex-grow-1" [(ngModel)]="newWord" type="text" pInputText />
+    <p-button (onClick)="addWord()">Add</p-button>
+  </div>
+</div>

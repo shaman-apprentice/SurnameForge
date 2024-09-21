@@ -1,7 +1,7 @@
 import { Component, effect, ElementRef, EnvironmentInjector, inject, input, OnDestroy, OnInit, runInInjectionContext, signal, ViewChild, ViewEncapsulation } from "@angular/core";
 import { WordCloud } from "./wordCloud";
-import { Size, Words } from "./wordCloud.type";
-import { IsLoadingDirective } from "../../supporting/directives/isLoading/isLoading/isLoading.directive";
+import { Size, Words } from "../../wordCloud.type";
+import { IsLoadingDirective } from "../../../../supporting/directives/isLoading/isLoading/isLoading.directive";
 
 @Component({
   selector: "app-word-cloud",
@@ -22,7 +22,7 @@ export class WordCloudComponent implements OnInit, OnDestroy {
   private environmentInjector = inject(EnvironmentInjector);
 
   private wordCloud: WordCloud | null = null;
-  private sizeObserver?: ResizeObserver;
+  private sizeObserver: ResizeObserver | null = null;
 
   ngOnInit(): void {
     this.sizeObserver = new ResizeObserver(entries => {
@@ -43,7 +43,7 @@ export class WordCloudComponent implements OnInit, OnDestroy {
           effect(() => {
             this.wordCloud!.render(this.words());
           }, { allowSignalWrites: true }); // render sets isLoading before and after render. Therefore, we need to allow write signals
-        })
+        });
       } else {
         this.wordCloud.resize(size, this.words())
       }

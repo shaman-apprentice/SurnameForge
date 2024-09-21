@@ -1,33 +1,16 @@
-import { Component, signal, ViewEncapsulation } from "@angular/core";
-import { WordCloudComponent } from "../../features/wordCloud/wordCloud.component";
+import { Component, ViewEncapsulation } from "@angular/core";
+import { SurnameForgeComponent } from "../../features/surnameForge/surnameForge.component";
 
 @Component({
-  selector: "app-surname-forge",
+  selector: "app-surname-forge-page",
   templateUrl: "surnameForge.page.html",
   encapsulation: ViewEncapsulation.None,
+  host: {
+    class: "h-100",
+  },
   standalone: true,
   imports: [
-    WordCloudComponent,
+    SurnameForgeComponent,
   ]
 })
-export class SurnameForgePage {
-  protected wc = signal(new Map([
-    ["Hello", 1],
-    ["world", 1],
-    ["normally", 1],
-    ["you", 1],
-    ["want", 1],
-    ["more", 1],
-    ["words", 1],
-    ["than", 2],
-    ["this", 1],
-  ]));
-
-  constructor() {
-    setTimeout(() => {
-      this.wc.set(new Map([
-        ["Hello", 1],
-      ]));
-    }, 1000)
-  }
-}
+export class SurnameForgePage { }

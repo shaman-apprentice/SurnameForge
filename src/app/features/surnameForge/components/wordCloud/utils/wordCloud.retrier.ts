@@ -1,5 +1,5 @@
 import { Observable, of, switchMap } from "rxjs";
-import { WordCloudWords, Words } from "../wordCloud.type";
+import { WordCloudWords, Words } from "../../../wordCloud.type";
 import cloud from "d3-cloud";
 
 export type PositionedWords = {
@@ -32,14 +32,15 @@ export function _parseWords(words: Words, baseFontSize: number): WordCloudWords 
   const result: WordCloudWords = [...words.entries()]
     .map(([word, frequency]) => ({
       text: word,
-      size: baseFontSize + frequency,
+      // TODO some nice dynamic scale factor
+      size: baseFontSize + 4 * frequency,
     }))
     .sort((a, b) => b.size - a.size);
 
   for (let i = result.length - 1; i > 0; i--) {
-    const oneAndAHalf = result[i].size * 1.5;
-    if (result[i - 1].size > oneAndAHalf)
-      result[i - 1].size = oneAndAHalf;
+    const threeTimesSize = result[i].size * 3;
+    if (result[i - 1].size > threeTimesSize)
+      result[i - 1].size = threeTimesSize;
   }
   
   return result;

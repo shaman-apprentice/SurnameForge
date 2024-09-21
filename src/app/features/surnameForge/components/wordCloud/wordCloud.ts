@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import cloud from "d3-cloud";
-import { Size, Words } from "./wordCloud.type";
+import { Size, Words } from "../../wordCloud.type";
 import { getColors } from "./utils/color.helper";
 import { CalculateWordPositions, calculateWordPositions, PositionedWords } from "./utils/wordCloud.retrier";
 import { debounceTime, Observable, Subject, Subscription, switchMap, tap } from "rxjs";
@@ -39,7 +39,7 @@ export class WordCloud {
         afterRenderCallback(positionedWords);
 
         if (!positionedWords.couldPlaceAllWords)
-          alert("Attention, not all words could be placed - sorry, this product is still in beta");
+          console.warn("Attention, not all words could be placed - sorry, this product is still in beta");
       })
     ).subscribe();
   }

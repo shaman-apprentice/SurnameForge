@@ -1,3 +1,4 @@
+<!-- TODO investigate why stepper header disappears at md breakpoint -->
 <p-stepper [activeStep]="activeStep$ | async" (activeStepChange)="handleActiveStepChange($event)">
   <p-stepperPanel header="Über diese Seite">
       <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">

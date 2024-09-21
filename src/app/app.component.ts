@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { StepperModule } from 'primeng/stepper';
 import { appPrimeNGTheme } from './primeNG.theme';
@@ -8,13 +8,15 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     StepperModule,
     RouterModule,
     AsyncPipe
   ],
-  templateUrl: './app.component.html',
 })
 export class AppComponent {
   private primeNGConfig = inject(PrimeNGConfig);
