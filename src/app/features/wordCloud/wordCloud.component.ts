@@ -1,19 +1,7 @@
-import { Component, ElementRef, OnDestroy, OnInit, signal, ViewChild, ViewEncapsulation } from "@angular/core";
+import { Component, effect, ElementRef, input, OnDestroy, OnInit, signal, ViewChild, ViewEncapsulation } from "@angular/core";
 import { WordCloud } from "./wordCloud";
-import { Size } from "./wordCloud.type";
+import { Size, Words } from "./wordCloud.type";
 import { IsLoadingDirective } from "../../supporting/directives/isLoading/isLoading/isLoading.directive";
-
-const wc2 = new Map([
-  ["Hello", 1],
-  ["world", 1],
-  ["normally", 1],
-  ["you", 1],
-  ["want", 1],
-  ["more", 1],
-  ["words", 1],
-  ["than", 2],
-  ["this", 1],
-]);
 
 @Component({
   selector: "app-word-cloud",
@@ -26,12 +14,22 @@ const wc2 = new Map([
   ]
 })
 export class WordCloudComponent implements OnInit, OnDestroy {
+  words = input.required<Words>();
+
   @ViewChild("wordCloudSvg", { static: true }) private wordCloudSvgRef!: ElementRef<SVGElement>;
 
   protected isLoading = signal(false);
 
   private wordCloud: WordCloud | null = null;
   private sizeObserver?: ResizeObserver;
+
+  constructor() {
+    effect(() => {
+      if (!this.wordCloud) return;
+
+      this.wordCloud.render(this.words());
+    }, { allowSignalWrites: true }); // render sets isLoading before and after render. Therefore, we need to allow write signals
+  }
 
   ngOnInit(): void {
     this.sizeObserver = new ResizeObserver(entries => {
@@ -47,9 +45,9 @@ export class WordCloudComponent implements OnInit, OnDestroy {
           () => this.isLoading.set(true),
           () => this.isLoading.set(false),
         );
-        this.wordCloud.render(wc2)
+        this.wordCloud.render(this.words())        
       } else {
-        this.wordCloud.resize(size, wc2)
+        this.wordCloud.resize(size, this.words())
       }
     });
     this.sizeObserver.observe(this.wordCloudSvgRef.nativeElement);
