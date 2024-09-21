@@ -35,19 +35,21 @@ export class WordCloudComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sizeObserver = new ResizeObserver(entries => {
-      this.isLoading.set(true);
-
       const size: Size = {
         width: entries[0].contentRect.width,
         height: entries[0].contentRect.height,
       }
+
       if (this.wordCloud === null) {
-        this.wordCloud = new WordCloud(size, this.wordCloudSvgRef.nativeElement);
+        this.wordCloud = new WordCloud(
+          size,
+          this.wordCloudSvgRef.nativeElement,
+          () => this.isLoading.set(true),
+          () => this.isLoading.set(false),
+        );
         this.wordCloud.render(wc2)
-          .then(() => this.isLoading.set(false));
       } else {
         this.wordCloud.resize(size, wc2)
-          .then(() => this.isLoading.set(false));
       }
     });
     this.sizeObserver.observe(this.wordCloudSvgRef.nativeElement);
@@ -55,5 +57,6 @@ export class WordCloudComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sizeObserver?.disconnect();
+    this.wordCloud?.destroy();
   }
 }

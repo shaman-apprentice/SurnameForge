@@ -1,19 +1,20 @@
 import { describe, expect, test } from "@jest/globals";
 import { Words } from "../wordCloud.type";
-import { _parseWords, calculateWordPositionsWithRetry, CalculateWordPositions } from "./wordCloud.retrier";
+import { _parseWords, calculateWordPositions, CalculateWordPositions } from "./wordCloud.retrier";
+import { firstValueFrom, of } from "rxjs";
 
 describe("wordCloud.retrier", () => {
   describe("calculateWordPositions", () => {
     test("it retries with smaller baseFontSize", async () => {
       const words: Words = new Map([]);
       const calculate: CalculateWordPositions = (words, baseFontSize) =>
-        Promise.resolve({
+        of({
           couldPlaceAllWords: baseFontSize === 23 ? true : false,
           placedWords: [],
           baseFontSize
         });
 
-        const result = await calculateWordPositionsWithRetry(calculate, words, 24);
+        const result = await firstValueFrom(calculateWordPositions(calculate, words, 24));
         expect(result).toEqual({
           couldPlaceAllWords: true,
           placedWords: [],
@@ -24,13 +25,13 @@ describe("wordCloud.retrier", () => {
     test("it stops retrying after minBaseFontSize reached", async () => {
       const words: Words = new Map([]);
       const calculate: CalculateWordPositions = (words, baseFontSize) =>
-        Promise.resolve({
+        of({
           couldPlaceAllWords: false,
           placedWords: [],
           baseFontSize
         });
 
-        const result = await calculateWordPositionsWithRetry(calculate, words, 24, 6);
+        const result = await firstValueFrom(calculateWordPositions(calculate, words, 24, 6));
         expect(result).toEqual({
           couldPlaceAllWords: false,
           placedWords: [],

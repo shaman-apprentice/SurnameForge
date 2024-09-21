@@ -1,3 +1,4 @@
+import { Observable, of, switchMap } from "rxjs";
 import { WordCloudWords, Words } from "../wordCloud.type";
 import cloud from "d3-cloud";
 
@@ -8,20 +9,23 @@ export type PositionedWords = {
 }
 
 export type CalculateWordPositions = (words: WordCloudWords, baseFontSize: number)
-  => Promise<PositionedWords> 
+  => Observable<PositionedWords> 
 
-export async function calculateWordPositionsWithRetry(
+export function calculateWordPositions(
   calculate: CalculateWordPositions,
   words: Words,
   baseFontSize: number,
   minBaseFontSize = 9
-): Promise<PositionedWords> {
+): Observable<PositionedWords> {
   const parsedWords = _parseWords(words, baseFontSize);
-  const result = await calculate(parsedWords, baseFontSize);
-  if (result.couldPlaceAllWords || baseFontSize <= minBaseFontSize)
-    return result;
+  return calculate(parsedWords, baseFontSize).pipe(
+    switchMap(result => {
+      if (result.couldPlaceAllWords || baseFontSize <= minBaseFontSize)
+        return of(result);
 
-  return calculateWordPositionsWithRetry(calculate, words, --baseFontSize, minBaseFontSize);
+      return calculateWordPositions(calculate, words, --baseFontSize, minBaseFontSize);
+    })
+  );
 } 
 
 export function _parseWords(words: Words, baseFontSize: number): WordCloudWords {
