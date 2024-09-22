@@ -2,5 +2,6 @@
   "folders": [
     { "path": "frontend" },
     { "path": "backend" },
+    { "path": "shared" }
   ]
 }

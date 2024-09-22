@@ -1,5 +1,5 @@
 {
-  "name": "surname-forge-frontend",
+  "name": "@surname-forge/frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@shaman-apprentice/bootstrap-v5.3-utility-classes-plus": "^0.0.3",
+    "@surename-forge/shared": "../shared",
     "a11y-contrast-color": "^1.1.0",
     "d3": "^7.9.0",
     "d3-cloud": "1.2.5",
