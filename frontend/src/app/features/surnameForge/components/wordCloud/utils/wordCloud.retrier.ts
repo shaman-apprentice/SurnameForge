@@ -1,6 +1,7 @@
 import { Observable, of, switchMap } from "rxjs";
-import { WordCloudWords, Words } from "../../../wordCloud.type";
 import cloud from "d3-cloud";
+import { WordCloudItem } from "@surename-forge/shared";
+import { WordWithFontSize } from "../wordCloud";
 
 export type PositionedWords = {
   couldPlaceAllWords: boolean;
@@ -8,12 +9,12 @@ export type PositionedWords = {
   baseFontSize: number;
 }
 
-export type CalculateWordPositions = (words: WordCloudWords, baseFontSize: number)
+export type CalculateWordPositions = (words: WordWithFontSize[], baseFontSize: number)
   => Observable<PositionedWords> 
 
 export function calculateWordPositions(
   calculate: CalculateWordPositions,
-  words: Words,
+  words: WordCloudItem[],
   baseFontSize: number,
   minBaseFontSize = 9
 ): Observable<PositionedWords> {
@@ -28,19 +29,19 @@ export function calculateWordPositions(
   );
 } 
 
-export function _parseWords(words: Words, baseFontSize: number): WordCloudWords {
-  const result: WordCloudWords = [...words.entries()]
-    .map(([word, frequency]) => ({
-      text: word,
+export function _parseWords(words: WordCloudItem[], baseFontSize: number): WordWithFontSize[] {
+  const result: WordWithFontSize[] = words
+    .map(({text, count}) => ({
+      text,
       // TODO some nice dynamic scale factor
-      size: baseFontSize + 4 * frequency,
+      fontSizeInPx: baseFontSize + 4 * count,
     }))
-    .sort((a, b) => b.size - a.size);
+    .sort((a, b) => b.fontSizeInPx - a.fontSizeInPx);
 
   for (let i = result.length - 1; i > 0; i--) {
-    const threeTimesSize = result[i].size * 3;
-    if (result[i - 1].size > threeTimesSize)
-      result[i - 1].size = threeTimesSize;
+    const threeTimesSize = result[i].fontSizeInPx * 3;
+    if (result[i - 1].fontSizeInPx > threeTimesSize)
+      result[i - 1].fontSizeInPx = threeTimesSize;
   }
   
   return result;

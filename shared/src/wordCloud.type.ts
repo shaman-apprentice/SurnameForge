@@ -1,6 +1,6 @@
-export type WordCloudWord = { 
-  /** word to be rendered */
+export type WordCloudItem = { 
+  /** "word" to be rendered */
   text: string;
-  /** used as fontSize */
-  size: number;
+  /** How often text occurred */
+  count: number;
 }

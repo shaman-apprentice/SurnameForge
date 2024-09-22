@@ -7,6 +7,8 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+
+  app.setGlobalPrefix("api");
   // By default, Fastify listens only on the localhost 127.0.0.1 interface (read more). If you want to accept connections on other hosts, you should specify '0.0.0.0' in the listen() call:
   await app.listen(3000);
 }

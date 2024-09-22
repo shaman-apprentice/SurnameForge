@@ -1,5 +1,4 @@
 import { Component, inject, input, OnInit, signal, ViewEncapsulation } from "@angular/core";
-import { Words } from "../../wordCloud.type";
 import { firstValueFrom } from "rxjs";
 import { SurnameWordCloudService } from "./surnameWordCloud.service";
 import { WordCloudComponent } from "../wordCloud/wordCloud.component";
@@ -7,6 +6,7 @@ import { IsLoadingDirective } from "../../../../supporting/directives/isLoading/
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from "@angular/forms";
+import { WordCloudItem } from "@surename-forge/shared";
 
 @Component({
   selector: "app-surname-form",
@@ -24,7 +24,7 @@ import { FormsModule } from "@angular/forms";
 export class SurnameFormComponent implements OnInit {
   surname = input.required<string>();
   
-  protected words = signal<Words>(new Map());
+  protected words = signal<WordCloudItem[]>([]);
   protected isLoading = true;
   protected newWord = "";
 

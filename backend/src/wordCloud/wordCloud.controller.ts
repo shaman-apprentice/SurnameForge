@@ -1,15 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
-import { WordCloudWord } from "@surname-forge/shared";
+import { Body, Controller, Get, Put, Query } from '@nestjs/common';
+import { WordCloudItem } from "@surname-forge/shared";
+import { wordCloudDB } from './wordCloud.service';
 
 @Controller("wordCloud")
 export class WordCloudController {
-  constructor() {}
+  constructor(private wordCloudDB: wordCloudDB) {}
 
   @Get()
-  getHello(): WordCloudWord {
-    return {
-      size: 1,
-      text: "yeah"
-    };
+  getWordCloud(@Query("surname") surname: string): Promise<WordCloudItem[]> {
+    return this.wordCloudDB.getWordCloud(surname);
+  }
+
+  @Put()
+  saveWord(
+    @Query("surname") surname: string,
+    @Body() data: { word: string; }
+  ): Promise<WordCloudItem[]> {
+    return this.wordCloudDB.saveWord(surname, data.word);
   }
 }

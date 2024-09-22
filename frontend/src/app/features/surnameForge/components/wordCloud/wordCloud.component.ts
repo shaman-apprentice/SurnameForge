@@ -1,7 +1,7 @@
 import { Component, effect, ElementRef, EnvironmentInjector, inject, input, OnDestroy, OnInit, runInInjectionContext, signal, ViewChild, ViewEncapsulation } from "@angular/core";
-import { WordCloud } from "./wordCloud";
-import { Size, Words } from "../../wordCloud.type";
+import { SvgSize, WordCloud } from "./wordCloud";
 import { IsLoadingDirective } from "../../../../supporting/directives/isLoading/isLoading/isLoading.directive";
+import { WordCloudItem } from "@surename-forge/shared";
 
 @Component({
   selector: "app-word-cloud",
@@ -14,7 +14,7 @@ import { IsLoadingDirective } from "../../../../supporting/directives/isLoading/
   ]
 })
 export class WordCloudComponent implements OnInit, OnDestroy {
-  words = input.required<Words>();
+  words = input.required<WordCloudItem[]>();
 
   @ViewChild("wordCloudSvg", { static: true }) private wordCloudSvgRef!: ElementRef<SVGElement>;
 
@@ -26,9 +26,9 @@ export class WordCloudComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sizeObserver = new ResizeObserver(entries => {
-      const size: Size = {
-        width: entries[0].contentRect.width,
-        height: entries[0].contentRect.height,
+      const size: SvgSize = {
+        widthInPx: entries[0].contentRect.width,
+        heightInPx: entries[0].contentRect.height,
       }
 
       if (this.wordCloud === null) {

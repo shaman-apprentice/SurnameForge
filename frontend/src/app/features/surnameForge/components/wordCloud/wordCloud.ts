@@ -1,9 +1,19 @@
 import * as d3 from "d3";
 import cloud from "d3-cloud";
-import { Size, Words } from "../../wordCloud.type";
 import { getColors } from "./utils/color.helper";
 import { CalculateWordPositions, calculateWordPositions, PositionedWords } from "./utils/wordCloud.retrier";
 import { debounceTime, Observable, Subject, Subscription, switchMap, tap } from "rxjs";
+import { WordCloudItem } from "@surename-forge/shared";
+
+export type SvgSize = {
+  widthInPx: number;
+  heightInPx: number;
+}
+
+export type WordWithFontSize = {
+  text: string;
+  fontSizeInPx: number;
+}
 
 // todo better UX when not all words could be placed
 // todo investigate why d3-cloud@1.2.5 works but d3-cloud@1.2.7 has a lot of overlaps
@@ -14,18 +24,18 @@ export class WordCloud {
   private baseFontSize = this.startBaseFontSize;
   private wordCloudTarget: d3.Selection<any, any, any, any>;
   private ongoingCalculation: ReturnType<typeof cloud> | null = null;
-  private words$: Subject<Words>;
+  private words$: Subject<WordCloudItem[]>;
   private renderProcess: Subscription;
 
   constructor(
-    private size: Size,
+    private size: SvgSize,
     svg: SVGElement,
-    beforeRenderCallback: (wordsToRender: Words) => void,
+    beforeRenderCallback: (wordsToRender: WordCloudItem[]) => void,
     afterRenderCallback: (renderedWords: PositionedWords) => void
   ) {
     this.wordCloudTarget = d3.select(svg)
       .append("g")
-      .attr("transform", `translate(${this.size.width/2},${this.size.height/2})`);
+      .attr("transform", `translate(${this.size.widthInPx/2},${this.size.heightInPx/2})`);
 
     this.words$ = new Subject();
     this.renderProcess = this.words$.pipe(
@@ -49,15 +59,15 @@ export class WordCloud {
   }
 
   /** Gets debounced by 100ms and will only last call to render will be put to screen. */
-  render(words: Words) {
+  render(words: WordCloudItem[]) {
     this.words$.next(words);
   }
 
-  async resize(size: Size, words: Words) {
+  async resize(size: SvgSize, words: WordCloudItem[]) {
     this.size = size;
     this.baseFontSize = this.startBaseFontSize;
     this.wordCloudTarget
-      .attr("transform", `translate(${this.size.width/2},${this.size.height/2})`);
+      .attr("transform", `translate(${this.size.widthInPx/2},${this.size.heightInPx/2})`);
 
     return this.render(words);
   }
@@ -69,12 +79,13 @@ export class WordCloud {
         this.ongoingCalculation.stop();
 
       this.ongoingCalculation = cloud()
-        .size([this.size.width, this.size.height])
+        .size([this.size.widthInPx, this.size.heightInPx])
         .words(words)
         .padding(5)
         .rotate(() => Math.floor(Math.random() * 60) - 30)
-        .font(this.font) 
-        .fontSize(d => d.size!)
+        .font(this.font)
+        // @ts-expect-error - todo better typing for d3-cloud 
+        .fontSize(d => d.fontSizeInPx)
         .timeInterval(100)
         .on("end", d => {
           this.ongoingCalculation = null;
