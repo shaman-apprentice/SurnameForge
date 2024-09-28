@@ -1,5 +1,38 @@
-<div class="d-flex justify-content-center">
-  <p-fieldset legend="Questions about surname" i18n="legend">
+<div class="d-flex justify-content-center flex-column">
+  <p-fieldset legend="Questions about surname" i18n-legend>
     <app-matrix-questions [questions]="surveyTemplate.aboutSurname.questions" />
+  </p-fieldset>
+
+  <p-fieldset legend="Yes / No questions" i18n-legend>
+    <app-dropdown-question
+      [question]="surveyTemplate.aboutProblem"
+      [options]="['Yes', 'No']"
+    />
+  </p-fieldset>
+
+  <p-fieldset legend="Questions about AI" i18n-legend>
+    <app-matrix-questions [questions]="surveyTemplate.aboutAI.questions" />
+  </p-fieldset>
+
+  <!-- <p-fieldset legend="Other" i18n="legend">
+    todo
+  </p-fieldset> -->
+
+  <p-fieldset legend="Yes / No questions" i18n-legend>
+    <app-dropdown-question
+      question="Your age"
+      i18n-question
+      [options]="surveyTemplate.demographic.age"
+    />
+    <app-dropdown-question
+      question="Your gender"
+      i18n-question
+      [options]="surveyTemplate.demographic.gender"
+    />
+    <app-dropdown-question
+      question="Your relation status"
+      i18n-question
+      [options]="surveyTemplate.demographic.relationStatus"
+    />
   </p-fieldset>
 </div>

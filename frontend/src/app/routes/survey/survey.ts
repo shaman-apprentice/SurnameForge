@@ -1,4 +1,4 @@
-import { AgeOptions, SurveyResult } from "@surename-forge/shared";
+import type { SurveyResult } from "@surename-forge/shared";
 
 export const matrixAnswers = [
   { value: 4, valueLabel: $localize`Strongly Agree` },
@@ -35,7 +35,7 @@ export const surveyTemplate = {
     other: "",
   },
   demographic: {
-    age: AgeOptions, 
+    age: [ '<30', '30-59', '>60' ], 
     gender: [ $localize`diverse`, $localize`female`, $localize`male` ],
     relationStatus: [ $localize`single`, $localize`engaged`, $localize`married`, $localize`widowed`, $localize`divorced` ],
   }

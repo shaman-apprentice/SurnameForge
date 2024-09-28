@@ -1,6 +1,15 @@
 app-survey-page {
   & p-fieldset {
+    margin: 1rem;
     display: block;
     width: 120ch;
+  }
+
+  & app-dropdown-question {
+    margin: 0 0.5rem;
+
+    & p-select {
+      width: 20ch;
+    }
   }
 }

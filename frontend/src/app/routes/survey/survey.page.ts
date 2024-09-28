@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { AboutPage } from "../about/about.page";
 import { surveyTemplate } from "./survey";
 import { FieldsetModule } from "primeng/fieldset";
+import { DropdownQuestionComponent } from "./components/dropdownQuestion/dropdownQuestion.component";
 
 @Component({
   selector: "app-survey-page",
@@ -16,6 +17,7 @@ import { FieldsetModule } from "primeng/fieldset";
     FormsModule,
     AboutPage,
     FieldsetModule,
+    DropdownQuestionComponent,
   ]
 })
 export class SurveyPage {
