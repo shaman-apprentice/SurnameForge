@@ -1,0 +1,6 @@
+app-survey-page {
+  & p-fieldset {
+    display: block;
+    width: 120ch;
+  }
+}

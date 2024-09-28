@@ -1,0 +1,21 @@
+<div class="matrix-questions-container">
+  <!-- header -->
+  <div><!--question column --></div>
+  @for (pA of possibleAnswers; track pA.value) {
+    <div class="m-auto d-flex h-100 align-items-end">{{ pA.valueLabel }}</div>
+  }
+
+  <!-- body -->
+  @for (q of questions; track $index) {
+    <div>{{ q }}</div>
+    @for (pA of possibleAnswers; track pA.value; let i=$index) {
+      <div class="m-auto">
+        <p-radioButton 
+          [value]="pA.value"
+          [(ngModel)]="radioButtonValues[q]"
+          (onClick)="emitChange()"
+        />
+    </div>
+    }
+  }
+</div>
