@@ -1,3 +1,5 @@
+<div>TODO intro, nullable</div>
+
 <div class="d-flex flex-column align-items-center">
   <p-fieldset legend="Questions about surname" i18n-legend>
     <app-matrix-questions [questions]="surveyTemplate.aboutSurname.questions" />
@@ -11,14 +13,20 @@
   </p-fieldset>
 
   <p-fieldset legend="Questions about AI" i18n-legend>
-    <app-matrix-questions [questions]="surveyTemplate.aboutAI.questions" />
+    <app-dropdown-question
+      class="mb-2"
+      [question]="surveyTemplate.aboutAI.howOften.question"
+      [options]="surveyTemplate.aboutAI.howOften.options"
+    />
+    <app-matrix-questions [questions]="surveyTemplate.aboutAI.matrix.questions" />
   </p-fieldset>
 
-  <!-- <p-fieldset legend="Other" i18n="legend">
-    todo
-  </p-fieldset> -->
+  <p-fieldset legend="Other" i18n-legend>
+    <app-free-text-question class="d-block mt-1 mb-3" [question]="surveyTemplate.openEnded.decisionOfSurname"/>
+    <app-free-text-question [question]="surveyTemplate.openEnded.other"/>
+  </p-fieldset>
 
-  <p-fieldset legend="Yes / No questions" i18n-legend>
+  <p-fieldset legend="Questions about demographic" i18n-legend>
     <app-dropdown-question
       question="Your age"
       i18n-question

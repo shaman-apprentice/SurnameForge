@@ -5,6 +5,7 @@ import { AboutPage } from "../about/about.page";
 import { surveyTemplate } from "./survey";
 import { FieldsetModule } from "primeng/fieldset";
 import { DropdownQuestionComponent } from "./components/dropdownQuestion/dropdownQuestion.component";
+import { FreeTextQuestionComponent } from "./components/freeTextQuestion/freeTextQuestion.component";
 
 @Component({
   selector: "app-survey-page",
@@ -18,6 +19,7 @@ import { DropdownQuestionComponent } from "./components/dropdownQuestion/dropdow
     AboutPage,
     FieldsetModule,
     DropdownQuestionComponent,
+    FreeTextQuestionComponent,
   ]
 })
 export class SurveyPage {
