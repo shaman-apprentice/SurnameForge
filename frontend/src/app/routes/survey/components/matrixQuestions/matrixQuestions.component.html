@@ -7,6 +7,7 @@
 
   <!-- body -->
   @for (q of questions; track $index) {
+    <div class="border"></div>
     <div>{{ q }}</div>
     @for (pA of possibleAnswers; track pA.value; let i=$index) {
       <div class="m-auto">

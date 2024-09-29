@@ -4,5 +4,10 @@ app-matrix-questions {
     grid-template-columns: auto repeat(5, 1fr);
     grid-template-rows: auto;
     gap: 0.5rem;
+
+    > .border {
+      grid-column: 1 / 7;
+      border: 1px solid var(--p-surface-300);
+    }
   }
 }
