@@ -8,6 +8,7 @@ import { DropdownQuestionComponent } from "./components/dropdownQuestion/dropdow
 import { FreeTextQuestionComponent } from "./components/freeTextQuestion/freeTextQuestion.component";
 import { createSurveyForm, toSurveyResult } from "./survey.form";
 import { ButtonModule } from "primeng/button";
+import { CardModule } from "primeng/card";
 
 @Component({
   selector: "app-survey-page",
@@ -24,6 +25,7 @@ import { ButtonModule } from "primeng/button";
     FreeTextQuestionComponent,
     ReactiveFormsModule,
     ButtonModule,
+    CardModule
   ]
 })
 export class SurveyPage {

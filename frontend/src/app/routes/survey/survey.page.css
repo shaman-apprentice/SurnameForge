@@ -1,8 +1,11 @@
 app-survey-page {
+  /* 80ch recommended reading length from introduction + 2 * 24px padding-x of its card body from PrimeNG */
+  --form-width: calc(80ch + 48px); 
+
   & p-fieldset {
     margin: 1rem;
     display: block;
-    width: 120ch;
+    width: var(--form-width);
   }
 
   & app-dropdown-question {
@@ -15,6 +18,6 @@ app-survey-page {
 
   .send-button button {
     display: block;
-    width: 120ch;
+    width: var(--form-width);
   }
 }
