@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component, inject, ViewEncapsulation } from "@angular/core";
 import { MatrixQuestionsComponent } from "./components/matrixQuestions/matrixQuestions.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AboutPage } from "../about/about.page";
@@ -9,6 +9,8 @@ import { FreeTextQuestionComponent } from "./components/freeTextQuestion/freeTex
 import { createSurveyForm, toSurveyResult } from "./survey.form";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-survey-page",
@@ -32,7 +34,12 @@ export class SurveyPage {
   protected surveyTemplate = surveyTemplate;
   protected form = createSurveyForm();
 
+  private http = inject(HttpClient);
+
   protected async send() {
     console.log(toSurveyResult(this.form));
+    // todo add loading indicator
+    await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
+    this.form = createSurveyForm();
   }
 }

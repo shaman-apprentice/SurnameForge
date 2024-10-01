@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { WordCloudController } from './wordCloud.controller';
-import { wordCloudDB } from './wordCloud.service';
+import { WordCloudDB } from './wordCloudDB.service';
 
 @Module({
   imports: [],
   controllers: [ WordCloudController ],
-  providers: [ wordCloudDB ]
+  providers: [ WordCloudDB ]
 })
 export class WordCloudModule {}

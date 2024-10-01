@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { WordCloudItem } from "@surname-forge/shared";
+import { getDb } from "../supporting/lowdb.helper";
 
 @Injectable()
-export class wordCloudDB {
+export class WordCloudDB {
   async getWordCloud(surname: string): Promise<WordCloudItem[]> {
     const db = await this.getDb(surname);
     return db.data;
@@ -25,9 +26,7 @@ export class wordCloudDB {
   }
 
   private async getDb(surname: string) {
-    const dbName = `lowdb/__db-${surname}__.json`;
-    // NestJS doesn't support ESM -.- - so use dynamic imports in combination with TS `moduleResolution: Node16`
-    const { JSONFilePreset } = await import("lowdb/node");
-    return await JSONFilePreset<WordCloudItem[]>(dbName, []);
+    const dbName = `lowdb/wordCloud/__db-${surname}__.json`;
+    return getDb<WordCloudItem[]>(dbName, [])
   }
 }
