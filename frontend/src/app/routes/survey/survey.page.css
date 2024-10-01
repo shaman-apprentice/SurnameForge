@@ -12,4 +12,9 @@ app-survey-page {
       width: 20ch;
     }
   }
+
+  .send-button button {
+    display: block;
+    width: 120ch;
+  }
 }

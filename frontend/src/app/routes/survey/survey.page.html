@@ -1,8 +1,11 @@
 <div>TODO intro, nullable</div>
 
-<div class="d-flex flex-column align-items-center">
+<form class="d-flex flex-column align-items-center" [formGroup]="form">
   <p-fieldset legend="Questions about surname" i18n-legend>
-    <app-matrix-questions [questions]="surveyTemplate.aboutSurname.questions" />
+    <app-matrix-questions 
+      [questions]="surveyTemplate.aboutSurname.questions"
+      [questionsForm]="form.controls.aboutSurname"  
+    />
   </p-fieldset>
 
   <p-fieldset legend="Yes / No questions" i18n-legend>
@@ -18,7 +21,10 @@
       [question]="surveyTemplate.aboutAI.howOften.question"
       [options]="surveyTemplate.aboutAI.howOften.options"
     />
-    <app-matrix-questions [questions]="surveyTemplate.aboutAI.matrix.questions" />
+    <!-- <app-matrix-questions
+      [questions]="surveyTemplate.aboutAI.matrix.questions"
+      
+    /> -->
   </p-fieldset>
 
   <p-fieldset legend="Other" i18n-legend>
@@ -43,4 +49,14 @@
       [options]="surveyTemplate.demographic.relationStatus"
     />
   </p-fieldset>
-</div>
+
+
+  <div style="font-size: 2rem;">Thank You</div>
+  <p-button
+    class="send-button | mt-2 mb-4"
+    severity="primary"
+    (onClick)="send()"
+  >
+    Send
+  </p-button>
+</form>
