@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from "@angular/core";
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { SelectModule } from "primeng/select";
 
@@ -15,6 +15,8 @@ import { SelectModule } from "primeng/select";
 export class DropdownQuestionComponent {
   @Input({ required: true }) question!: string;
   @Input({ required: true }) options!: string[];
+
+  @Output() selected = new EventEmitter<string>();
 
   protected selectedValue: string | null = null;
 }

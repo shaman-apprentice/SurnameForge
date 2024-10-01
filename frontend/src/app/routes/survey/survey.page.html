@@ -12,6 +12,7 @@
     <app-dropdown-question
       [question]="surveyTemplate.aboutProblem"
       [options]="['Yes', 'No']"
+      (selected)="form.controls.aboutProblem.setValue($event === 'Yes')"
     />
   </p-fieldset>
 
@@ -20,16 +21,24 @@
       class="mb-2"
       [question]="surveyTemplate.aboutAI.howOften.question"
       [options]="surveyTemplate.aboutAI.howOften.options"
+      (selected)="form.controls.aboutAI.controls.howOften.setValue($event)"
     />
-    <!-- <app-matrix-questions
+    <app-matrix-questions
       [questions]="surveyTemplate.aboutAI.matrix.questions"
-      
-    /> -->
+      [questionsForm]="form.controls.aboutAI.controls.matrix"
+    />
   </p-fieldset>
 
   <p-fieldset legend="Other" i18n-legend>
-    <app-free-text-question class="d-block mt-1 mb-3" [question]="surveyTemplate.openEnded.decisionOfSurname"/>
-    <app-free-text-question [question]="surveyTemplate.openEnded.other"/>
+    <app-free-text-question
+      class="d-block mt-1 mb-3"
+      [question]="surveyTemplate.openEnded.decisionOfSurname"
+      [control]="form.controls.openEnded.controls.decisionForSurname"
+    />
+    <app-free-text-question
+      [question]="surveyTemplate.openEnded.other"
+      [control]="form.controls.openEnded.controls.other"
+    />
   </p-fieldset>
 
   <p-fieldset legend="Questions about demographic" i18n-legend>
@@ -37,19 +46,21 @@
       question="Your age"
       i18n-question
       [options]="surveyTemplate.demographic.age"
+      (selected)="form.controls.demographic.controls.age.setValue($event)"
     />
     <app-dropdown-question
       question="Your gender"
       i18n-question
       [options]="surveyTemplate.demographic.gender"
+      (selected)="form.controls.demographic.controls.gender.setValue($event)"
     />
     <app-dropdown-question
       question="Your relation status"
       i18n-question
       [options]="surveyTemplate.demographic.relationStatus"
+      (selected)="form.controls.demographic.controls.relationStatus.setValue($event)"
     />
   </p-fieldset>
-
 
   <div style="font-size: 2rem;">Thank You</div>
   <p-button

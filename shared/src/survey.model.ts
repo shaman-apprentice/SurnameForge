@@ -1,13 +1,16 @@
 export type SurveyResult = {
   aboutSurname: MatrixAnswer[];
   aboutProblem: boolean | null;
-  aboutAI: MatrixAnswer[];
+  aboutAI: {
+    howOften: string | null;
+    matrix: MatrixAnswer[];
+  };
   openEnded: {
     decisionForSurname: string;
     other: string;
   };
   demographic: {
-    age: typeof AgeOptions[number] | null;
+    age: string | null;
     gender: string | null;
     relationStatus: string | null;
   };

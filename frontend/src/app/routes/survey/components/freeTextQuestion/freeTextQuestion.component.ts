@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
@@ -9,11 +9,11 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
   standalone: true,
   imports: [
     InputTextareaModule,
-    FormsModule,
+    ReactiveFormsModule
+    ,
   ]
 })
 export class FreeTextQuestionComponent {
   @Input({ required: true }) question!: string;
-
-  protected answer = "";
+  @Input({ required: true }) control!: FormControl<string | null>
 }
