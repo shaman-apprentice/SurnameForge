@@ -23,7 +23,7 @@
     "a11y-contrast-color": "^1.1.0",
     "d3": "^7.9.0",
     "d3-cloud": "1.2.5",
-    "primeng": "^18.0.0-beta.1",
+    "primeng": "^18.0.0-beta.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
