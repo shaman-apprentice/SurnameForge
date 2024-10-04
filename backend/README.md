@@ -1,6 +1,5 @@
 ## TODOs
 
-- mobile
 - Hide rest of app
 - multi language support of survey
 - center impressum link

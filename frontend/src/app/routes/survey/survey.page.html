@@ -1,13 +1,11 @@
-<p-card header="Surname Forge survey" class="d-flex flex-column align-items-center">
-  <span class="d-block" style="width: 80ch; line-height: 1.5rem;">
+<form [formGroup]="form">
+  <p-card header="Surname Forge survey">
     We are looking for feedback on the meaning of the surname, especially the choice of surname at the wedding.
     The survey will take about 10 minutes to complete.
     If you wish, you can leave any answer blank that you do not wish to answer.
     We greatly appreciate your time!
-  </span>
-</p-card>
+  </p-card>
 
-<form class="d-flex flex-column align-items-center" [formGroup]="form">
   <p-fieldset legend="Questions about surname" i18n-legend>
     <app-matrix-questions 
       [questions]="surveyTemplate.aboutSurname.questions"
@@ -69,12 +67,17 @@
     />
   </p-fieldset>
 
-  <div style="font-size: 2rem;">Thank You</div>
-  <p-button
-    class="send-button | mt-2 mb-4"
-    severity="primary"
-    (onClick)="send()"
-  >
-    Send
-  </p-button>
+  <div class="text-center" style="width: min(100vw, var(--form-width))">
+    <div style="font-size: 2rem; ">Thank You</div>
+  </div>
+  <div style="width: min(100vw, var(--form-width))">
+    <p-button
+      class="send-button | mt-2 mb-4 w-100"
+      styleClass="w-100"
+      severity="primary"
+      (onClick)="send()"
+    >
+      Send
+    </p-button>
+  </div>
 </form>
