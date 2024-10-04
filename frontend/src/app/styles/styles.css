@@ -3,3 +3,7 @@
 body {
   margin: 0;
 }
+
+.p-toolbar.footer {
+  border-radius: 0;
+}
