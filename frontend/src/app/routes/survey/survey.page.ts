@@ -11,6 +11,7 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
+import { GlobalLoadingService } from "../../services/globalLoading.service";
 
 @Component({
   selector: "app-survey-page",
@@ -35,11 +36,13 @@ export class SurveyPage {
   protected form = createSurveyForm();
 
   private http = inject(HttpClient);
+  private globalLoadingService = inject(GlobalLoadingService);
 
   protected async send() {
-    console.log(toSurveyResult(this.form));
-    // todo add loading indicator
-    await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
-    this.form = createSurveyForm();
+    await this.globalLoadingService.withLoadingScreen(async () => {
+      console.log(toSurveyResult(this.form));
+      await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
+      this.form = createSurveyForm();
+    });
   }
 }

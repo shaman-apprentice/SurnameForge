@@ -6,6 +6,8 @@ import { appPrimeNGTheme } from './primeNG.theme';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { GlobalLoadingService } from './services/globalLoading.service';
+import { IsLoadingDirective } from './supporting/directives/isLoading/isLoading/isLoading.directive';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +19,13 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe,
     StepperModule,
     ToolbarModule,
+    IsLoadingDirective,
+    AsyncPipe,
   ],
 })
 export class AppComponent implements OnInit {
+  protected globalLoadingService = inject(GlobalLoadingService);
+
   private primeNGConfig = inject(PrimeNGConfig);
   private router = inject(Router);
   private readonly routesOfSteps = ["/about", "/surname-forge", "/survey"] as const;

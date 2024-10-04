@@ -15,5 +15,5 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
 })
 export class LoadingOverlayComponent {
   @Input({ required: true }) target!: BlockableUI;
-  @Input({ required: true }) isLoading!: boolean;
+  @Input({ required: true }) isLoading!: boolean | null;
 }

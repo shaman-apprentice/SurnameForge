@@ -1,7 +1,9 @@
 ## TODOs
 
 - mobile
-- loading overlay
+- Hide rest of app
+- multi language support of survey
+- center impressum link
 
 ## deploy know how
 

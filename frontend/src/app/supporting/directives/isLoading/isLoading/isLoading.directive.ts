@@ -8,7 +8,7 @@ import { LoadingOverlayComponent } from "./isLoadingOverlay.component";
 })
 export class IsLoadingDirective implements OnDestroy {
   // Don't use signals here due to https://github.com/angular/angular/issues/55808
-  @Input({ required: true }) set isLoading(value: boolean) {
+  @Input({ required: true }) set isLoading(value: boolean | null) {
     this.getLoadingOverlay().setInput("isLoading", value);
   }
 
