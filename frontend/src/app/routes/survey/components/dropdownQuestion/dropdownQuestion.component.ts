@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { Component, Input, ViewEncapsulation } from "@angular/core";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { SelectModule } from "primeng/select";
 
 @Component({
@@ -9,14 +9,11 @@ import { SelectModule } from "primeng/select";
   standalone: true,
   imports: [
     SelectModule,
-    FormsModule,
+    ReactiveFormsModule,
   ]
 })
-export class DropdownQuestionComponent {
+export class DropdownQuestionComponent<T> {
   @Input({ required: true }) question!: string;
-  @Input({ required: true }) options!: string[];
-
-  @Output() selected = new EventEmitter<string>();
-
-  protected selectedValue: string | null = null;
+  @Input({ required: true }) options!: T[];
+  @Input({ required: true }) control!: FormControl<T | null>;
 }

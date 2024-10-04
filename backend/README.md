@@ -1,6 +1,5 @@
 ## TODOs
 
-- reset funktioniert für dropdowns nicht
 - mobile
 - loading overlay
 

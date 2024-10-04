@@ -2,7 +2,6 @@
   <div>{{ question }}</div>
   <p-select
     [options]="options"
-    [(ngModel)]="selectedValue"
-    (onChange)="selected.emit($event.value)"
+    [formControl]="control"
   />
 </div>

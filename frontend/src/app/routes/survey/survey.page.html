@@ -19,7 +19,7 @@
     <app-dropdown-question
       [question]="surveyTemplate.aboutProblem"
       [options]="['Yes', 'No']"
-      (selected)="form.controls.aboutProblem.setValue($event === 'Yes')"
+      [control]="form.controls.aboutProblem"
     />
   </p-fieldset>
 
@@ -28,7 +28,7 @@
       class="mb-2"
       [question]="surveyTemplate.aboutAI.howOften.question"
       [options]="surveyTemplate.aboutAI.howOften.options"
-      (selected)="form.controls.aboutAI.controls.howOften.setValue($event)"
+      [control]="form.controls.aboutAI.controls.howOften"
     />
     <app-matrix-questions
       [questions]="surveyTemplate.aboutAI.matrix.questions"
@@ -53,19 +53,19 @@
       question="Your age"
       i18n-question
       [options]="surveyTemplate.demographic.age"
-      (selected)="form.controls.demographic.controls.age.setValue($event)"
+      [control]="form.controls.demographic.controls.age"
     />
     <app-dropdown-question
       question="Your gender"
       i18n-question
       [options]="surveyTemplate.demographic.gender"
-      (selected)="form.controls.demographic.controls.gender.setValue($event)"
+      [control]="form.controls.demographic.controls.gender"
     />
     <app-dropdown-question
       question="Your relation status"
       i18n-question
       [options]="surveyTemplate.demographic.relationStatus"
-      (selected)="form.controls.demographic.controls.relationStatus.setValue($event)"
+      [control]="form.controls.demographic.controls.relationStatus"
     />
   </p-fieldset>
 

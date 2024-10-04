@@ -7,7 +7,7 @@ export function createSurveyForm() {
     aboutSurname: new FormArray(
       surveyTemplate.aboutSurname.questions.map(q => new FormControl<number | null>(null))
     ),
-    aboutProblem: new FormControl<boolean | null>(null),
+    aboutProblem: new FormControl<string | null>(null),
     aboutAI: new FormGroup({
       howOften: new FormControl<string | null>(null),
       matrix: new FormArray(
@@ -39,7 +39,7 @@ export function toSurveyResult(form: SurveyForm): SurveyResult {
         valueLabel: selectedAnswer?.valueLabel ?? null,
       }
     }),
-    aboutProblem: value.aboutProblem,
+    aboutProblem: value.aboutProblem === null ? null : value.aboutProblem === "Yes",
     aboutAI: {
       howOften: value.aboutAI.howOften,
       matrix: value.aboutAI.matrix.map((answer, i) => {
