@@ -3,7 +3,6 @@
 - mobile
 - loading overlay
 
-
 ## deploy know how
 
 - Folder _~/surnameforge_ must exist
