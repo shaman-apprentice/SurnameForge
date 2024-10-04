@@ -9,7 +9,6 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [

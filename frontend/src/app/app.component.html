@@ -1,18 +1,7 @@
-<!-- TODO investigate why stepper header disappears at md breakpoint -->
-<p-stepper [activeStep]="activeStep$ | async" (activeStepChange)="handleActiveStepChange($event)">
-  <p-stepperPanel header="Über diese Seite">
-      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-          <router-outlet />
-      </ng-template>
-  </p-stepperPanel>
-  <p-stepperPanel header="Surname Forge">
-      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-        <router-outlet />
-      </ng-template>
-  </p-stepperPanel>
-  <p-stepperPanel header="Umfrage">
-      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-        <router-outlet />
-      </ng-template>
-  </p-stepperPanel>
+<p-stepper class="d-block mb-3" [activeStep]="activeStep$ | async" (activeStepChange)="handleActiveStepChange($event)">
+  <p-stepperPanel header="Über diese Seite" />
+  <p-stepperPanel header="Surname Forge" />
+  <p-stepperPanel header="Umfrage" />
 </p-stepper>
+
+<router-outlet />
