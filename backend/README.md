@@ -1,8 +1,8 @@
 ## TODOs
 
-- Hide rest of app
 - multi language support of survey
-- center impressum link
+- update deploy (backend npm i --prod, keep _lowdb folder)
+- check loading overlay
 
 ## deploy know how
 

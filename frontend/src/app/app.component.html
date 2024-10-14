@@ -1,9 +1,11 @@
 @let isGloballyLoading = globalLoadingService.isLoading$ | async;
 <div
+  style="min-height: 100vh;"
+  class="d-flex flex-column"
   [attr.inert]="isGloballyLoading ? '' : null"
   [isLoading]="isGloballyLoading"
 >
-  <div class="d-flex flex-column gap-3" style="height: 100vh; width: 100vw; overflow: auto;">
+  <!-- <div class="d-flex flex-column gap-3" style="height: 100vh; width: 100vw; overflow: auto;">
     <p-stepper class="d-block px-3" [activeStep]="activeStep$ | async" (activeStepChange)="handleActiveStepChange($event)">
       <p-stepperPanel header="Über diese Seite" />
       <p-stepperPanel header="Surname Forge" />
@@ -15,10 +17,20 @@
     </div>
 
     <p-toolbar styleClass="footer">
-      <!-- Note, that this is not yet centered, due to a bug in PrimeNG@18.0.0-beta.2 -->
       <ng-template pTemplate="center">
         <a href="/impressum">Impressum</a>
       </ng-template>
     </p-toolbar>
+  </div> -->
+  <div class="my-4 flex-grow-1">
+    <router-outlet />
   </div>
+
+  <p-toolbar styleClass="footer">
+    <ng-template pTemplate="start"></ng-template>
+    <ng-template pTemplate="center">
+      <a href="/impressum">Impressum</a>
+    </ng-template>
+    <ng-template pTemplate="end"></ng-template>
+  </p-toolbar>
 </div>

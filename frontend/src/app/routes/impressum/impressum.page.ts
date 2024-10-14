@@ -1,4 +1,6 @@
 import { Component, ViewEncapsulation } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 
 @Component({
@@ -7,7 +9,9 @@ import { CardModule } from "primeng/card";
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    CardModule
+    CardModule,
+    ButtonModule,
+    RouterModule,
   ]
 })
 export class ImpressumPage {}

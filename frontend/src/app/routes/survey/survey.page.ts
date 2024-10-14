@@ -40,7 +40,7 @@ export class SurveyPage {
 
   protected async send() {
     await this.globalLoadingService.withLoadingScreen(async () => {
-      console.log(toSurveyResult(this.form));
+      console.debug(toSurveyResult(this.form));
       await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
       this.form = createSurveyForm();
     });
