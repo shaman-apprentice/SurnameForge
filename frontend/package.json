@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "jest",
+    "translate": "ng extract-i18n --output-path ./locales --out-file messages.en.json --format json"
   },
   "private": true,
   "dependencies": {
