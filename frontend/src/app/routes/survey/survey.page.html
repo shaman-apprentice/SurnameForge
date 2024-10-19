@@ -70,7 +70,10 @@
   </p-fieldset>
 
   <div class="text-center" style="width: min(100vw, var(--form-width))">
-    <div style="font-size: 2rem; ">Thank You</div>
+    <div style="font-size: 2rem" i18n>Thank You</div>
+    @if (wasSent) {
+      <div class="mt-3 text-lg" i18n>We have received your feedback. You can close the page now.</div>
+    }
   </div>
   <div style="width: min(100vw, var(--form-width))">
     <p-button
@@ -78,6 +81,7 @@
       styleClass="w-100"
       severity="primary"
       (onClick)="send()"
+      [disabled]="wasSent"
     >
       Send
     </p-button>

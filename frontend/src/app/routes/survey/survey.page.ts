@@ -34,6 +34,7 @@ import { GlobalLoadingService } from "../../services/globalLoading.service";
 export class SurveyPage {
   protected surveyTemplate = surveyTemplate;
   protected form = createSurveyForm();
+  protected wasSent = false;
 
   private http = inject(HttpClient);
   private globalLoadingService = inject(GlobalLoadingService);
@@ -42,7 +43,7 @@ export class SurveyPage {
     await this.globalLoadingService.withLoadingScreen(async () => {
       console.debug(toSurveyResult(this.form));
       await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
-      this.form = createSurveyForm();
+      this.wasSent = true;
     });
   }
 }
