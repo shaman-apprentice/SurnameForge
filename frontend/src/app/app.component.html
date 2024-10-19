@@ -1,9 +1,7 @@
 @let isGloballyLoading = globalLoadingService.isLoading$ | async;
 <div
-  style="min-height: 100vh;"
-  class="d-flex flex-column"
+  class="vh-100 overflow-auto d-flex flex-column"
   [attr.inert]="isGloballyLoading ? '' : null"
-  [isLoading]="isGloballyLoading"
 >
   <!-- <div class="d-flex flex-column gap-3" style="height: 100vh; width: 100vw; overflow: auto;">
     <p-stepper class="d-block px-3" [activeStep]="activeStep$ | async" (activeStepChange)="handleActiveStepChange($event)">
@@ -34,3 +32,9 @@
     <ng-template pTemplate="end"></ng-template>
   </p-toolbar>
 </div>
+
+@if (isGloballyLoading) {
+  <div class="position-absolute vh-100 vw-100 top-0 | global-loading-container">
+    <div class="h-100" [isLoading]="isGloballyLoading"></div>
+  </div>
+}

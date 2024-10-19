@@ -2,7 +2,6 @@
 
 - multi language support of survey
 - update deploy (backend npm i --prod, keep _lowdb folder)
-- check loading overlay
 
 ## deploy know how
 
