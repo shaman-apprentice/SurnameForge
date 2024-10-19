@@ -1,4 +1,10 @@
 app-matrix-questions {
+  .app-matrix-question-option {
+    font-size: 14px;
+    line-height: 16px;
+    width: 48px;
+  }
+
   .matrix-questions-container {
     display: grid;
     grid-template-columns: auto repeat(5, 1fr);

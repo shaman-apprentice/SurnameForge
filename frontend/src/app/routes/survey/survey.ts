@@ -11,11 +11,11 @@ export const matrixAnswers = [
 export const surveyTemplate = {
   aboutSurname: {
     questions: [
-      $localize`I get often called by my family name or a nickname based on my family name`,
+      $localize`I associate feelings and attributes like "protection", "love", or "mathematically gifted" with my family`,
       $localize`It is important to me what my friends think about my family`,
-      $localize`I associate feelings and attributes like "protection", "love", or "mathematically gifted" with my family name`,
+      $localize`My friends often call me by my family name or a nickname based on my family name`,
       $localize`It is important to me to have the same surname as my partner`,
-      $localize`If I were asked, I would swap my surname for my partner's without hesitation`, 
+      $localize`I would swap my surname for my partner's without hesitation`, 
       $localize`I would be happy, if my siblings would keep our family name when getting married`,
       $localize`I think my family would be upset, if I would drop our family name`,
     ],
@@ -36,8 +36,8 @@ export const surveyTemplate = {
     }
   },
   openEnded: {
-    decisionOfSurname: "If you have already married, what was the reasoning for your chosen surname?",
-    other: "Anything else you wish to tell us?",
+    decisionOfSurname: $localize`If you have already married, what was the reasoning for your chosen surname?`,
+    other: $localize`Anything else you wish to tell us?`,
   },
   demographic: {
     age: [ '<30', '30-59', '>60' ], 
