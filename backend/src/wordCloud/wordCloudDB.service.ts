@@ -26,7 +26,7 @@ export class WordCloudDB {
   }
 
   private async getDb(surname: string) {
-    const dbName = `lowdb/wordCloud/__db-${surname}__.json`;
+    const dbName = `wordCloud/__db-${surname}__.json`;
     return getDb<WordCloudItem[]>(dbName, [])
   }
 }

@@ -2,7 +2,7 @@ import { Body, Controller, Put } from '@nestjs/common';
 import { SurveyDB } from './surveyDB.service';
 import { SurveyResult } from '@surname-forge/shared';
 
-@Controller("survey")
+@Controller("api/survey")
 export class SurveyController {
   constructor(private surveyDB: SurveyDB) {}
 

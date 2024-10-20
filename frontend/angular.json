@@ -10,10 +10,9 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "en",
         "locales": {
-          "de": { "translation": "locales/messages.de.json", "baseHref": "de" },
-          "en": { "translation": "locales/messages.en.json", "baseHref": "en" }
+          "de": { "translation": "locales/messages.de.json" }
         }
       },
       "architect": {

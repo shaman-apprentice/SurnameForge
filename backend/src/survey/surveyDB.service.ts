@@ -12,7 +12,7 @@ export class SurveyDB {
   }
 
   private async getDb() {
-    const dbName = `lowdb/survey/surveys.json`;
+    const dbName = `survey/surveys.json`;
     return getDb<SurveyResult[]>(dbName, []);
   }
 }

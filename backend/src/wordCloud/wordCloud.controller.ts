@@ -2,7 +2,7 @@ import { Body, Controller, Get, Put, Query } from '@nestjs/common';
 import { WordCloudItem } from "@surname-forge/shared";
 import { WordCloudDB } from './wordCloudDB.service';
 
-@Controller("wordCloud")
+@Controller("api/wordCloud")
 export class WordCloudController {
   constructor(private wordCloudDB: WordCloudDB) {}
 
