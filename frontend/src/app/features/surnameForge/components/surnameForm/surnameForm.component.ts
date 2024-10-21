@@ -33,7 +33,6 @@ export class SurnameFormComponent implements OnInit {
   async ngOnInit() {
     try {
       this.isLoading = true;
-      console.log(this.surname())
       const words = await firstValueFrom(this.wordCloud.getWords(this.surname()));
       this.words.set(words);
     } finally {

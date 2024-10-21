@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { join as joinPath } from 'path';
+import path from 'node:path';
 import { existsSync, statSync } from 'node:fs';
-import { envConfig } from '../env.conig';
+import { envConfig } from '../env.config';
 
 const languages = [ "en", "de" ] as const;
 type Language = typeof languages[number];
@@ -13,20 +13,20 @@ export function staticFrontend(req: Request, res: Response, next: NextFunction) 
   }
 
   res.sendFile(parseAngularPath(req), (err) => {
-    console.error(err);
+    console.error("Couldn't serve response:", err);
     next();
   });
 }
 
 /** returns index.html if given filePath doesNot exist, as the request should be by an Angular's SPA route */
 function parseAngularPath(req: Request): string {
-  const path = getI18nPath(req);
-  const staticFilePath = joinPath(envConfig.PATH_TO_FRONTEND, path);
+  const i18nPath = getI18nPath(req);
+  const staticFilePath = path.join(envConfig.PATH_TO_FRONTEND, i18nPath);
   if (existsSync(staticFilePath) && statSync(staticFilePath).isFile())
     return staticFilePath;
 
   const lang = getLanguage(req);
-  return joinPath(envConfig.PATH_TO_FRONTEND, `${lang}/index.html`);
+  return path.join(envConfig.PATH_TO_FRONTEND, lang, "index.html");
 }
 
 function getI18nPath(req: Request): string {
@@ -43,7 +43,7 @@ function getLanguage(req: Request): Language {
 
 function getLanguageFromHeader(req: Request): Language {
   const acceptedLanguages = req.acceptsLanguages();
-  const languageFromHeader = languages.filter(l => acceptedLanguages.includes(l))[0];
+  const languageFromHeader = languages.find(l => acceptedLanguages.includes(l));
   if (languageFromHeader)
     return languageFromHeader;
 
@@ -51,5 +51,5 @@ function getLanguageFromHeader(req: Request): Language {
 }
 
 function getLanguageFromUrl(req: Request): Language | undefined {
-  return languages.filter(l => req.path.startsWith("/" + l))[0];
+  return languages.find(l => req.path.startsWith("/" + l));
 }
