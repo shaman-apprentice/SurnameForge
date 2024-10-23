@@ -10,7 +10,7 @@
 
 ### Get "db dump"
 
-`scp root@188.245.154.139:~/surnameforge/backend/lowdb/survey/surveys.json ./lowdbBackup`
+`scp root@188.245.154.139:/root/surnameforge/lowdb/survey/surveys.json ./lowdbBackup`
 
 ### nginx
 

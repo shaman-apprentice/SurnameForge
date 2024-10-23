@@ -21,7 +21,10 @@ export const surveyTemplate = {
     ],
     possibleAnswers: matrixAnswers,
   },
-  aboutProblem: $localize`I know at least one couple, who had a long discussion about their family name before their wedding`,
+  aboutProblem: {
+    question: $localize`I know at least one couple, who had a long discussion about their family name before their wedding`,
+    options: [ $localize`Yes`, $localize`No` ],
+  },
   aboutAI: {
     howOften: {
       question: $localize`How often have you used AI like ChatGPT`,
@@ -42,7 +45,7 @@ export const surveyTemplate = {
   demographic: {
     age: [ '<30', '30-59', '>60' ], 
     gender: [ $localize`diverse`, $localize`female`, $localize`male` ],
-    relationStatus: [ $localize`single`, $localize`engaged`, $localize`married`, $localize`widowed`, $localize`divorced` ],
+    relationStatus: [ $localize`single`, $localize`in a relationship`, $localize`married`, $localize`widowed`, $localize`divorced` ],
   }
 };
 

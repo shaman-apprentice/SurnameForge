@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit on any cmd failure
+set -e
+
 echo "Building shared"
 cd ./shared || exit
 npm ci

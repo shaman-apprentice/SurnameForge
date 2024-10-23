@@ -17,8 +17,8 @@
 
   <p-fieldset legend="Yes / No questions" i18n-legend>
     <app-dropdown-question
-      [question]="surveyTemplate.aboutProblem"
-      [options]="['Yes', 'No']"
+      [question]="surveyTemplate.aboutProblem.question"
+      [options]="surveyTemplate.aboutProblem.options"
       [control]="form.controls.aboutProblem"
     />
   </p-fieldset>

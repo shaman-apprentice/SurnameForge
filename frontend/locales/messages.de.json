@@ -1,5 +1,5 @@
 {
-  "locale": "de-DE",
+  "locale": "de",
   "translations": {
     "2549408065515537645": "Surname Forge Umfrage",
     "1726363342938046830": "Über diese Umfrage",
@@ -28,6 +28,8 @@
     "5026909761614952415": "Ich würde mich freuen, wenn meine Geschwister bei ihrer Heirat unseren Familiennamen behalten",
     "8884221513843364214": "Ich glaube meine Familie fände es nicht gut, wenn ich unseren Familienname ablege",
     "5823208172309402420": "Ich kenne mindestens ein Pärchen, die eine längere Diskussion über ihren gemeinsamen Familiennamen hatte",
+    "2807800733729323332": "Ja",
+    "3542042671420335679": "Nein",
     "6383197909131590142": "Wie oft verwendest du KIs wie ChatGPT",
     "4710302283435137320": "Ich habe vertrauen in Antworten von KIs wie ChatGPT",
     "5280254839658832186": "Ich habe Spaß daran mit KIs wie ChatGPT zu arbeiten",
@@ -37,7 +39,7 @@
     "8780288282078058831": "Frau",
     "5743999575330197666": "Mann",
     "9153626564388483358": "Single",
-    "8693274211338475747": "Verlobt",
+    "3357053574940381950": "In einer Beziehung",
     "6593652993642152648": "Verheiratet",
     "1882512616063095462": "Verwitwet",
     "8795271143544759948": "Geschieden"
