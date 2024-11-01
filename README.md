@@ -1,6 +1,6 @@
 ## TODO
 
-## Ops know how
+## Ops know-how
 
 ### Deploy
 
@@ -57,4 +57,39 @@ systemctl stop surnameforge.service
 journalctl -u surnameforge.service
 systemctl daemon-reload
 systemctl restart surnameforge.service
+```
+
+### Trusted SSL by Let's Encrypt
+
+`sudo certbot certonly --standalone -d surnameforge.de -d www.surnameforge.de`
+
+Update nginx config
+```
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name surnameforge.de www.surnameforge.de;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name surnameforge.de www.surnameforge.de;
+
+    ssl_certificate /etc/letsencrypt/live/surnameforge.de-0001/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/surnameforge.de-0001/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 ```
