@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: "app-free-text-question",
@@ -8,7 +8,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    InputTextareaModule,
+    TextareaModule,
     ReactiveFormsModule
     ,
   ]

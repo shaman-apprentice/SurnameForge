@@ -1,7 +1,7 @@
-import { definePreset } from "primeng/themes";
-import { Lara } from "primeng/themes/lara";
+import { definePreset } from "@primeng/themes";
+import Aura from '@primeng/themes/aura';
 
-export const appPrimeNGTheme = definePreset(Lara, {
+export const appPrimeNGTheme = definePreset(Aura, {
   semantic: {
     primary: {
       50: '#fdf2f8',
