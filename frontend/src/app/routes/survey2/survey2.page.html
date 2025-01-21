@@ -2,7 +2,7 @@
   <h1 i18n>Second Surname Forge survey</h1>
 
   <p-card header="About" i18n-header i18n>
-    This is a short follow up survey of <a routerLink="survey">our first survey</a>.
+    This is a short follow-up survey of <a routerLink="survey">our first survey</a>.
     <span class="fw-bold"> Thanks for your feedback so far! </span>
     This survey will take less than 5 minutes to complete.
     If you wish, you can leave any answer blank that you do not wish to answer.
@@ -51,7 +51,7 @@
 
   <div class="text-center" style="width: min(100vw, var(--form-width))">
     <div style="font-size: 2rem" i18n>Thank You</div>
-    @if (wasSent) {
+    @if (wasSent()) {
       <div class="mt-3 text-lg" i18n>We have received your feedback. You can close the page now.</div>
     }
   </div>
@@ -61,7 +61,7 @@
       styleClass="w-100"
       severity="primary"
       (onClick)="send()"
-      [disabled]="wasSent"
+      [disabled]="wasSent()"
       i18n
     >
       Send

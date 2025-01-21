@@ -22,7 +22,7 @@ app-survey-two-page {
     margin: 0 0.5rem;
 
     & p-select {
-      width: 20ch;
+      width: 226px;
     }
   }
 }

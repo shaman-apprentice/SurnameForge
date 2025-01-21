@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation } from "@angular/core";
 import { survey2Template } from "./survey2";
 import { createSurvey2Form, toSurvey2Result } from "./survey2.form";
 import { HttpClient } from "@angular/common/http";
@@ -36,7 +36,7 @@ import { InputTextModule } from "primeng/inputtext";
 export class Survey2Page {
   protected survey2Template = survey2Template;
   protected form = createSurvey2Form();
-  protected wasSent = false;
+  protected wasSent = signal(false);
 
   private http = inject(HttpClient);
   private globalLoadingService = inject(GlobalLoadingService);
@@ -44,7 +44,7 @@ export class Survey2Page {
   protected async send() {
     await this.globalLoadingService.withLoadingScreen(async () => {
       await firstValueFrom(this.http.put(`/api/survey2`, toSurvey2Result(this.form)));
-      this.wasSent = true;
+      this.wasSent.set(true);
     });
   }
 }
