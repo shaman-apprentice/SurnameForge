@@ -4,7 +4,7 @@
 
 ### Deploy
 
-- Make sure folders specified in [.env.production](./backend/env/.env.production) exist on target server
+- Make sure envs checked in [env.config.ts](./backend/src/.env.config.ts) exist on target server
 - Configure nginx (see nginx)
 - Configure *systemd* to run app, so it gets restarted etc. (see section below)
 

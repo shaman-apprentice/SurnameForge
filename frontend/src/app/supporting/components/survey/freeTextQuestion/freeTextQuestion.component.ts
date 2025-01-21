@@ -6,11 +6,9 @@ import { TextareaModule } from 'primeng/textarea';
   selector: "app-free-text-question",
   templateUrl: "freeTextQuestion.component.html",
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     TextareaModule,
-    ReactiveFormsModule
-    ,
+    ReactiveFormsModule,
   ]
 })
 export class FreeTextQuestionComponent {

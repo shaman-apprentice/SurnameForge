@@ -1,0 +1,70 @@
+<form [formGroup]="form">
+  <h1 i18n>Second Surname Forge survey</h1>
+
+  <p-card header="About" i18n-header i18n>
+    This is a short follow up survey of <a routerLink="survey">our first survey</a>.
+    <span class="fw-bold"> Thanks for your feedback so far! </span>
+    This survey will take less than 5 minutes to complete.
+    If you wish, you can leave any answer blank that you do not wish to answer.
+    We greatly appreciate your time once again!
+  </p-card>
+
+  <p-fieldset legend="Questions about surname" i18n-legend>
+    <app-matrix-questions 
+      [questions]="survey2Template.targetQuestions.questions"
+      [questionsForm]="form.controls.targetQuestions" 
+      [possibleAnswers]="survey2Template.targetQuestions.possibleAnswers" 
+    />
+  </p-fieldset>
+
+  <p-fieldset legend="Other" i18n-legend>
+    <app-free-text-question
+      [question]="survey2Template.other"
+      [control]="form.controls.other"
+    />
+  </p-fieldset>
+
+  <p-fieldset legend="Questions about demographic" i18n-legend>
+    <app-dropdown-question
+      question="Your age"
+      i18n-question
+      [options]="survey2Template.demographic.age"
+      [control]="form.controls.demographic.controls.age"
+    />
+    <app-dropdown-question
+      question="Your gender"
+      i18n-question
+      [options]="survey2Template.demographic.gender"
+      [control]="form.controls.demographic.controls.gender"
+    />
+    <div class="d-flex justify-content-between align-items-center">
+      <div>{{ survey2Template.demographic.country }}</div>
+      <input pInputText [formControl]="form.controls.demographic.controls.country"/>
+    </div>
+    <app-dropdown-question
+      question="Your relation status"
+      i18n-question
+      [options]="survey2Template.demographic.relationStatus"
+      [control]="form.controls.demographic.controls.relationStatus"
+    />
+  </p-fieldset>
+
+  <div class="text-center" style="width: min(100vw, var(--form-width))">
+    <div style="font-size: 2rem" i18n>Thank You</div>
+    @if (wasSent) {
+      <div class="mt-3 text-lg" i18n>We have received your feedback. You can close the page now.</div>
+    }
+  </div>
+  <div style="width: min(100vw, var(--form-width))">
+    <p-button
+      class="send-button | mt-2 mb-4 w-100"
+      styleClass="w-100"
+      severity="primary"
+      (onClick)="send()"
+      [disabled]="wasSent"
+      i18n
+    >
+      Send
+    </p-button>
+  </div>
+</form>

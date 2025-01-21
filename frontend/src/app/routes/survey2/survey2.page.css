@@ -1,0 +1,28 @@
+app-survey-two-page {
+  /* 80ch recommended reading length from introduction + 2 * 24px padding-x of p-card body, which is at top */
+  --form-width: calc(80ch + 48px);
+
+  /* Don't use flex on parent. On small devices when there is less width than --form-width, this leads to cut off space */
+  > form {
+    display: block;
+    width: var(--form-width);
+    margin: 0 auto;
+    line-height: 1.5rem;
+
+    > * {
+      display: block;
+
+      &:not(:first-child) {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+
+  & app-dropdown-question {
+    margin: 0 0.5rem;
+
+    & p-select {
+      width: 20ch;
+    }
+  }
+}

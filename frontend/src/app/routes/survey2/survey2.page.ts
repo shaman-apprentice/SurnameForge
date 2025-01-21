@@ -1,40 +1,41 @@
-import { Component, inject, ViewEncapsulation } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { surveyTemplate } from "./survey";
-import { FieldsetModule } from "primeng/fieldset";
-import { createSurveyForm, toSurveyResult } from "./survey.form";
-import { ButtonModule } from "primeng/button";
-import { CardModule } from "primeng/card";
-import { TooltipModule } from "primeng/tooltip";
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from "@angular/core";
+import { survey2Template } from "./survey2";
+import { createSurvey2Form, toSurvey2Result } from "./survey2.form";
 import { HttpClient } from "@angular/common/http";
-import { firstValueFrom } from "rxjs";
 import { GlobalLoadingService } from "../../services/globalLoading.service";
+import { firstValueFrom } from "rxjs";
 import { FreeTextQuestionComponent } from "../../supporting/components/survey/freeTextQuestion/freeTextQuestion.component";
 import { DropdownQuestionComponent } from "../../supporting/components/survey/dropdownQuestion/dropdownQuestion.component";
 import { MatrixQuestionsComponent } from "../../supporting/components/survey/matrixQuestions/matrixQuestions.component";
+import { ButtonModule } from "primeng/button";
+import { CardModule } from "primeng/card";
+import { FieldsetModule } from "primeng/fieldset";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { InputTextModule } from "primeng/inputtext";
 
 @Component({
-  selector: "app-survey-page",
-  templateUrl: "survey.page.html",
-  styleUrl: "survey.page.css",
+  selector: "app-survey-two-page",
+  templateUrl: "survey2.page.html",
+  styleUrl: "survey2.page.css",
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatrixQuestionsComponent,
     FormsModule,
     FieldsetModule,
     DropdownQuestionComponent,
     FreeTextQuestionComponent,
+    InputTextModule,
     ReactiveFormsModule,
     ButtonModule,
-    RouterModule,
-    TooltipModule,
     CardModule,
+    RouterModule,
   ]
 })
-export class SurveyPage {
-  protected surveyTemplate = surveyTemplate;
-  protected form = createSurveyForm();
+export class Survey2Page {
+  protected survey2Template = survey2Template;
+  protected form = createSurvey2Form();
   protected wasSent = false;
 
   private http = inject(HttpClient);
@@ -42,8 +43,7 @@ export class SurveyPage {
 
   protected async send() {
     await this.globalLoadingService.withLoadingScreen(async () => {
-      console.debug(toSurveyResult(this.form));
-      await firstValueFrom(this.http.put(`/api/survey`, toSurveyResult(this.form)));
+      await firstValueFrom(this.http.put(`/api/survey2`, toSurvey2Result(this.form)));
       this.wasSent = true;
     });
   }

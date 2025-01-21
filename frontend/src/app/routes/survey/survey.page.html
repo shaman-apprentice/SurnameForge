@@ -1,5 +1,15 @@
 <form [formGroup]="form">
-  <h1 i18n>Surname Forge survey</h1>
+  <h1 i18n>
+    Surname Forge survey
+    <a
+      routerLink="/survey2"
+      class="p-button font-bold text-decoration-none"
+      pTooltip="Go to follow-up survey"
+      i18n-pTooltip
+    >
+      <i class="pi pi-chevron-right"></i>
+    </a>
+  </h1>
 
   <p-card header="About" i18n-header i18n>
     We are looking for feedback on the meaning of the surname, especially the choice of surname at the wedding.
@@ -12,6 +22,7 @@
     <app-matrix-questions 
       [questions]="surveyTemplate.aboutSurname.questions"
       [questionsForm]="form.controls.aboutSurname"  
+      [possibleAnswers]="surveyTemplate.aboutSurname.possibleAnswers"
     />
   </p-fieldset>
 
@@ -33,6 +44,7 @@
     <app-matrix-questions
       [questions]="surveyTemplate.aboutAI.matrix.questions"
       [questionsForm]="form.controls.aboutAI.controls.matrix"
+      [possibleAnswers]="surveyTemplate.aboutAI.matrix.possibleAnswers"
     />
   </p-fieldset>
 

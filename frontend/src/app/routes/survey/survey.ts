@@ -1,12 +1,10 @@
-import type { SurveyResult } from "@surename-forge/shared";
-
 export const matrixAnswers = [
   { value: 4, valueLabel: $localize`Strongly Agree` },
   { value: 3, valueLabel: $localize`Agree` },
   { value: 2, valueLabel: $localize`Neutral` },
   { value: 1, valueLabel: $localize`Disagree` },
   { value: 0, valueLabel: $localize`Strongly Disagree` },
-] as const;
+];
 
 export const surveyTemplate = {
   aboutSurname: {
@@ -48,31 +46,3 @@ export const surveyTemplate = {
     relationStatus: [ $localize`single`, $localize`in a relationship`, $localize`married`, $localize`widowed`, $localize`divorced` ],
   }
 };
-
-export function createSurvey(): SurveyResult {
-  return {
-    aboutSurname: surveyTemplate.aboutSurname.questions.map(q => ({
-      question: q,
-      value: null,
-      valueLabel: null,
-    })),
-    aboutProblem: null,
-    aboutAI: {
-      howOften: null,
-      matrix: surveyTemplate.aboutAI.matrix.questions.map(q => ({
-        question: q,
-        value: null,
-        valueLabel: null,
-      }))
-    },
-    openEnded: {
-      decisionForSurname: surveyTemplate.openEnded.decisionOfSurname,
-      other: surveyTemplate.openEnded.other,
-    },
-    demographic: {
-      age: null,
-      gender: null,
-      relationStatus: null,
-    }
-  };
-}

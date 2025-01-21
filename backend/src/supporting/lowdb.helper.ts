@@ -6,7 +6,7 @@ export async function getDb<T>(filePath: string, initialValue: T) {
   // NestJS doesn't support ESM -.- - so use dynamic imports in combination with TS `moduleResolution: Node16`
   const { JSONFilePreset } = await import("lowdb/node");
 
-  const fullPath = path.join(envConfig.PATH_TO_DB, filePath);
+  const fullPath = path.join(envConfig.SURNAMEFORGE_PATH_TO_DB, filePath);
   await ensureDirExists(fullPath);
   
   return await JSONFilePreset<T>(fullPath, initialValue);

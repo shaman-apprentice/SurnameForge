@@ -4,6 +4,7 @@ import { SurnameForgePage } from './routes/surnameForge/surnameForge.page';
 import { SurveyPage } from './routes/survey/survey.page';
 import { ImpressumPage } from './routes/impressum/impressum.page';
 import { environment } from '../environments/environment';
+import { Survey2Page } from './routes/survey2/survey2.page';
 
 export const routes: Routes = environment.showOnlySurvey
   ? [ { path: "survey", component: SurveyPage } ]
@@ -11,6 +12,7 @@ export const routes: Routes = environment.showOnlySurvey
     { path: "about", component: AboutPage },
     { path: "surname-forge", component: SurnameForgePage },
     { path: "survey", component: SurveyPage },
+    { path: "survey2", component: Survey2Page },
   ];
 
 routes.push(...[

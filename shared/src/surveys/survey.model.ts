@@ -1,3 +1,5 @@
+import { MatrixAnswer } from "./matrixAnswer.model";
+
 export type SurveyResult = {
   aboutSurname: MatrixAnswer[];
   aboutProblem: boolean | null;
@@ -14,12 +16,4 @@ export type SurveyResult = {
     gender: string | null;
     relationStatus: string | null;
   };
-}
-
-export const AgeOptions = [ "<30", "30-59", ">60" ] as const;
-
-export type MatrixAnswer = {
-  value: number | null;
-  valueLabel: string | null;
-  question: string;
 }

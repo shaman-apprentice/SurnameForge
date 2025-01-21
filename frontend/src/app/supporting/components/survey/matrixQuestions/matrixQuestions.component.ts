@@ -1,8 +1,6 @@
 import { Component, Input, ViewEncapsulation } from "@angular/core";
-import { matrixAnswers } from "../../survey";
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ReactiveFormsModule } from "@angular/forms";
-import { SurveyForm } from "../../survey.form";
+import { FormArray, FormControl, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-matrix-questions",
@@ -17,7 +15,6 @@ import { SurveyForm } from "../../survey.form";
 })
 export class MatrixQuestionsComponent {
   @Input({ required: true }) questions!: string[];
-  @Input({ required: true }) questionsForm!: SurveyForm["controls"]["aboutSurname"];
-
-  protected readonly possibleAnswers = matrixAnswers;
+  @Input({ required: true }) questionsForm!: FormArray<FormControl<number | null>>;
+  @Input({ required: true }) possibleAnswers!: Array<{ value: number, valueLabel: string}>;
 }

@@ -21,12 +21,12 @@ export function staticFrontend(req: Request, res: Response, next: NextFunction) 
 /** returns index.html if given filePath doesNot exist, as the request should be by an Angular's SPA route */
 function parseAngularPath(req: Request): string {
   const i18nPath = getI18nPath(req);
-  const staticFilePath = path.join(envConfig.PATH_TO_FRONTEND, i18nPath);
+  const staticFilePath = path.join(envConfig.SURNAMEFORGE_PATH_TO_FRONTEND, i18nPath);
   if (existsSync(staticFilePath) && statSync(staticFilePath).isFile())
     return staticFilePath;
 
   const lang = getLanguage(req);
-  return path.join(envConfig.PATH_TO_FRONTEND, lang, "index.html");
+  return path.join(envConfig.SURNAMEFORGE_PATH_TO_FRONTEND, lang, "index.html");
 }
 
 function getI18nPath(req: Request): string {
